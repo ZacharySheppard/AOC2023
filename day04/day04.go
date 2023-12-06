@@ -86,11 +86,11 @@ func partOne(winningNumbers [][]int, cards [][]int) int {
 
 func partTwo(winningNumbers [][]int, cards [][]int) int {
 	total := 0
-	cardsPerRound := [][][]int //why god why
+	cardsPerRound := [][][]int{} //why god why
 	for i := 0; i < len(winningNumbers)-1; i++ {
-		card := cardsPerRound[i]
-		for {
-
+		thisRoundsCards := cardsPerRound[i]
+		for j := 0; j < len(thisRoundsCards); j++ {
+			total := getNumberOfWinners(cards[j], winningNumbers[i])
 		}
 	}
 }
