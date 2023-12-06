@@ -86,13 +86,24 @@ func partOne(winningNumbers [][]int, cards [][]int) int {
 
 func partTwo(winningNumbers [][]int, cards [][]int) int {
 	total := 0
-	cardsPerRound := [][][]int{} //why god why
+	numberOfCards := make([]int, len(cards))
+
+	for i := 0; i < len(cards); i++ {
+		numberOfCards[i] = 1
+	}
+
 	for i := 0; i < len(winningNumbers)-1; i++ {
-		thisRoundsCards := cardsPerRound[i]
-		for j := 0; j < len(thisRoundsCards); j++ {
-			total := getNumberOfWinners(cards[j], winningNumbers[i])
+		for k := 1; k <= numberOfCards[i]; k++ {
+			winners := getNumberOfWinners(cards[i], winningNumbers[i])
+			for j := i + 1; j <= i+winners; j++ {
+				numberOfCards[j]++
+			}
 		}
 	}
+	for _, count := range numberOfCards {
+		total += count
+	}
+	return total
 }
 
 func main() {
@@ -114,5 +125,6 @@ func main() {
 		cards = append(cards, parseNumbers(splitLine[1]))
 	}
 
-	fmt.Println(partOne(winningNumbers, cards))
+	// fmt.Println(partOne(winningNumbers, cards))
+	fmt.Println(partTwo(winningNumbers, cards))
 }
